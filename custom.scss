@@ -1,0 +1,67 @@
+/*-- scss:ALA theme --*/
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,300i&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Lato&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Fira+Mono&display=swap);
+
+// fonts
+$font-family-sans-serif: "Roboto", Roboto, serif;
+$font-family-monospace: "Fira Mono", Fira;
+
+$code-block-font-size: 0.5em;
+$credits-font-size: 0.45em;
+
+// colors
+$body-bg: #fff !default;
+$body-color: #000 !default;
+$link-color: #51483d !default;
+$selection-bg: #26351c !default;
+$code-color: #222322 !default;
+$custom-color: #f064a4;
+$custom-color-ala: #B8573E;
+
+
+// headings
+$presentation-heading-font: "Roboto", Roboto, serif;
+$presentation-heading-color: #222322;
+$header-font-size: 2em;
+
+/*-- scss:rules --*/
+
+.reveal a {
+  line-height: 1.3em;
+}
+
+.reveal h1 {
+  color: $custom-color;
+  font-size: $header-font-size !important; 
+}
+
+.clipped {
+  clip-path: circle();
+}
+
+.reveal .galah h1 {
+  color: $custom-color;
+}
+
+.reveal .galah h2 {
+  color: $custom-color;
+}
+
+.reveal .galah h1 code {
+  color: $custom-color;
+}
+
+.reveal .ala4r h1 {
+  color: $custom-color-ala;
+}
+
+.reveal .ala4r h2 {
+  color: $custom-color-ala;
+}
+
+.credits {
+  color: #fff;
+  font-size: $credits-font-size;
+}

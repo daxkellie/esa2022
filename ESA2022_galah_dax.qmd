@@ -1,0 +1,299 @@
+---
+title: "Exploring biodiversity data is tidier than ever with {galah}"
+author: |
+  Dax Kellie <br>
+  ![](images/logos/ALA_Logo.png){style="width: auto; height: 120px; margin-top: 80px; padding-left: 20px; padding-right: 20px"} ![](images/logos/NCRIS_logo.png){style="width: auto; height: 120px; margin-top: 80px; padding-left: 20px; padding-right: 20px"} ![](images/logos/CSIRO_logo.png){style="width: auto; height: 120px; margin-top: 80px; padding-left: 20px; padding-right: 20px"} 
+title-slide-attributes: 
+  data-background-color: "#fce8f1"
+format: 
+  revealjs: 
+    theme: [default, custom.scss] 
+    transition: fade
+editor: visual
+---
+
+# 
+
+![](images/ALA-homepage.png){fig-align="center"}
+
+#  {background-color="#B8573E" auto-animate="true"}
+
+::: {style="color: #ffffff; font-size: 170%"}
+<b>ALA4R</b><br>
+:::
+
+
+## ALA4R still had problems {.ala4r}
+
+::: columns
+::: {.column width="50%"}
+<br>
+
+-   **No function naming convention**
+-   Confusing syntax
+-   Inconsistent behaviour
+:::
+
+::: {.column width="\"50%"}
+
+::: {style="color: #222322; font-size: 60%"}
+<br><br>
+
+-   abbreviations: `aus()`
+-   snake case: `ala_fields()`
+-   single words: `occurrences()`, `images()`
+-   contractions: `fieldguide()`
+::: 
+:::
+:::
+
+## ALA4R still had problems {.ala4r}
+
+::: columns
+::: {.column width="50%"}
+<br>
+
+-   No function naming convention
+-   **Confusing syntax**
+-   Inconsistent behaviour
+:::
+
+::: {.column width="\"50%"}
+
+::: {style="color: #222322; font-size: 60%"}
+<br><br>
+
+-   unclear function names: `ala_list()`, `ala_lists()`, `specieslist()`
+-   abbreviated argument names: `wkt`, `fq`, `qa`
+-   Required `solr` queries: `"taxon_name:\"Alaba vibex\""`
+:::
+:::
+:::
+
+## ALA4R still had problems {.ala4r}
+
+::: columns
+::: {.column width="50%"}
+<br>
+
+-   No function naming convention
+-   Confusing syntax
+-   **Inconsistent behaviour**
+:::
+
+::: {.column width="\"50%"}
+
+::: {style="color: #222322; font-size: 60%"}
+<br><br>
+
+-   Functions return either:
+    -    a `data.frame`
+    -    a `list`
+    -    a PDF
+:::
+:::
+:::
+
+
+##  tidyverse {background-image="images/logos/tidylogos.png" background-color="#000" background-size="30%" background-position="center" transition="convex"}
+The tidyverse brought a set of recognised standards and syntax
+
+#  {background-color="#f5b2d0" auto-animate="true"}
+
+::: {style="color: #ffffff; font-size: 200%"}
+<b>galah</b><br>
+:::
+
+## galah {.galah auto-animate="true"}
+
+::: columns
+::: {.column width="30%"}
+![](images/logos/galah_logo.png)
+:::
+
+::: {.column width="70%" style="margin-left:50px;"}
+-   Query the ALA (and other national GBIF nodes)
+-   Use tidy, pipe-able syntax
+:::
+:::
+
+## galah {.galah auto-animate="true"}
+
+::: columns
+::: {.column width="30%"}
+![](images/logos/galah_logo.png)
+:::
+
+::: {.column width="70%" style="margin-left:50px;"}
+::: {style="font-size: 50%;"}
+| Lookup         | Narrow a query      | Run a query           |
+|----------------|---------------------|-----------------------|
+| `show_all()`   | `galah_identify()`  | `atlas_counts()`      |
+| `search_all()` | `galah_filter()`    | `atlas_occurrences()` |
+|                | `galah_select()`    | `atlas_species()`     |
+|                | `galah_group_by()`  | `atlas_media()`       |
+|                | `galah_geolocate()` |                       |
+:::
+:::
+:::
+
+
+
+
+## Build a query {.galah auto-animate="true" transition-speed="fast"}
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(galah)
+galah_config(email = "dax.kellie@csiro.au", verbose = FALSE)
+```
+
+```{r, eval = FALSE, echo = TRUE, message = FALSE, warning = FALSE}
+#| code-line-numbers: "|3|4,5,6,7|8"
+library(galah)
+
+galah_call() |>
+  galah_identify("Eolophus roseicapilla") |>
+  galah_filter(year >= 2019,
+               stateProvince == "New South Wales") |>
+  galah_group_by(year, dataResourceName) |>
+  atlas_counts()
+```
+
+## Build a query {.galah auto-animate="true" transition-speed="fast"}
+
+```{r, echo = TRUE, message = FALSE, warning = FALSE}
+library(galah)
+
+galah_call() |>
+  galah_identify("Eolophus roseicapilla") |> # galahs
+  galah_filter(year >= 2019,
+               stateProvince == "New South Wales") |>
+  galah_group_by(year, dataResourceName) |>
+  atlas_counts()
+```
+
+## Build a query {.galah auto-animate="true" transition-speed="fast"}
+
+```{r occurrences, echo = TRUE, message = FALSE, warning = FALSE}
+#| code-line-numbers: "8"
+library(galah)
+
+galah_call() |>
+  galah_identify("Eolophus roseicapilla") |> # galahs
+  galah_filter(year >= 2022,
+               stateProvince == "New South Wales") |>
+  galah_select(scientificName, decimalLongitude, decimalLatitude) |>
+  atlas_occurrences()
+```
+
+#  {background-color="#f5b2d0" auto-animate="true"}
+
+::: {style="color: #ffffff; font-size: 200%"}
+<b>galah 1.5.0</b><br>
+:::
+
+## Expanding to other Living Atlases {.galah}
+
+```{r, echo = TRUE}
+library(gt)
+show_all_atlases() |> gt()
+```
+
+## Expanding to other Living Atlases {.galah}
+
+```{r, echo = TRUE, message = FALSE, warning = FALSE}
+galah_config(atlas = "Spain")
+
+galah_call() |>
+  galah_identify("reptilia") |>
+  atlas_counts()
+```
+
+## Expanding to other Living Atlases {.galah auto-animate="true" transition-speed="fast"}
+
+```{r, echo = TRUE, message = FALSE, warning = FALSE}
+galah_config(atlas = "Brazil")
+
+galah_call() |>
+  galah_identify("reptilia") |>
+  atlas_counts()
+```
+
+## Expanding to other Living Atlases {.galah auto-animate="true" transition-speed="fast"}
+
+```{r, echo = TRUE, message = FALSE, warning = FALSE}
+galah_config(atlas = "Sweden")
+
+galah_call() |>
+  galah_identify("reptilia") |>
+  atlas_counts()
+```
+
+## Expanding to other Living Atlases {.galah}
+
+```{r, echo = TRUE}
+#| output-location: column
+library(purrr)
+library(tibble)
+library(dplyr)
+
+atlases <- show_all_atlases()
+
+counts <- map(atlases$atlas, ~ {
+  galah_config(atlas = .x)
+  atlas_counts()
+  }) |> bind_rows()
+
+tibble(
+  atlas = atlases$atlas, 
+  n = counts$count) |> 
+  arrange(desc(n)) |>
+  gt() |> 
+  fmt_number(columns = n,
+             decimals = 0)
+```
+
+## Downloading biodiversity data is tidier than ever {.galah}
+
+::: columns
+::: {.column width="17%"}
+![](images/logos/galah_logo.png)
+:::
+
+::: {.column width="80%" style="margin-left:15px; margin-right:15px; font-size: 80%"}
+-   `galah` makes downloading data like wrangling data with `dplyr`
+
+-   Package architecture is flexible for other biodiversity databases
+
+-   Lots of [documentation](http://galah.ala.org.au/), [ALA Labs](https://labs.ala.org.au/)
+
+![](images/Varanusvarius.jpeg){.clipped .absolute width="250" right="3%" top="100"}\
+![](images/Vanellustricolor.jpeg){.clipped .absolute width="250" right="3%" top="270"}\
+![](images/bandicoot.jfif){.clipped .absolute width="250" right="3%" top="440"}\
+:::
+:::
+
+:::aside
+:::{style="font-size: 30%"}
+Image credits:\
+[*Varanus varius*: Tracey-Ann Hooley (CC BY)](https://images.ala.org.au/image/e1746dc8-1ec6-4bca-a211-82c641a8bb07)\
+[*Vanellus tricolor*: Kym Nicolson (CC BY)](https://images.ala.org.au/image/details?imageId=3698fb4f-a008-4629-a03f-435e7b7ffb85)\
+[*Southern Brown Bandicoot*: Treeswift Wildlife and Nature (CC-BY-NC 4.0)](https://images.ala.org.au/image/b78df3c4-50e0-45b1-a2c5-7a518998fe2e)\
+:::
+:::
+
+
+## Thank you {background-color="#fce8f1"}
+
+::: columns
+::: {.column width="80%"}
+::: {style="font-size: 70%;"}
+<br> <b>Dax Kellie</b><br> Data Analyst | Science & Decision Support | ALA<br> e: dax.kellie\@csiro.au<br> t: [\@daxkellie](https://twitter.com/daxkellie)<br> gh: [\@daxkellie](https://github.com/daxkellie) <br> <br> <b>`galah` development team</b><br> Martin Westgate<br> Matilda Stevenson<br> Shandiya Balasubramaniam<br> Peggy Newman<br> <br> <br> <em>These slides were made using Quarto & RStudio</em>
+:::
+:::
+
+::: {.column width="20%"}
+![](images/logos/ALA_Logo.png){style="width: 100%; height: auto"}<br> ![](images/logos/NCRIS_logo.png){style="width: 100%; height: auto"}<br> ![](images/logos/CSIRO_logo.png){style="width: 100%; height: auto"}
+:::
+:::
+
