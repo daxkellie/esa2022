@@ -1,0 +1,4 @@
+- source: index.qmd
+  quarto-pub:
+    - id: d5f2e754-9457-45a4-878b-b8d550c6dfd5
+      url: 'https://quartopub.com/sites/daxkellie/esa2022-galah'
