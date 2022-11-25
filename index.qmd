@@ -22,7 +22,6 @@ editor: visual
 <b>ALA4R</b><br>
 :::
 
-
 ## ALA4R still had problems {.ala4r}
 
 ::: columns
@@ -35,7 +34,6 @@ editor: visual
 :::
 
 ::: {.column width="\"50%"}
-
 ::: {style="color: #222322; font-size: 60%"}
 <br><br>
 
@@ -43,7 +41,7 @@ editor: visual
 -   snake case: `ala_fields()`
 -   single words: `occurrences()`, `images()`
 -   contractions: `fieldguide()`
-::: 
+:::
 :::
 :::
 
@@ -59,7 +57,6 @@ editor: visual
 :::
 
 ::: {.column width="\"50%"}
-
 ::: {style="color: #222322; font-size: 60%"}
 <br><br>
 
@@ -82,20 +79,19 @@ editor: visual
 :::
 
 ::: {.column width="\"50%"}
-
 ::: {style="color: #222322; font-size: 60%"}
 <br><br>
 
 -   Functions return either:
-    -    a `data.frame`
-    -    a `list`
-    -    a PDF
+    -   a `data.frame`
+    -   a `list`
+    -   a PDF
 :::
 :::
 :::
 
+## tidyverse {background-image="images/logos/tidylogos.png" background-color="#000" background-size="30%" background-position="center" transition="convex"}
 
-##  tidyverse {background-image="images/logos/tidylogos.png" background-color="#000" background-size="30%" background-position="center" transition="convex"}
 The tidyverse brought a set of recognised standards and syntax
 
 #  {background-color="#f5b2d0" auto-animate="true"}
@@ -137,9 +133,6 @@ The tidyverse brought a set of recognised standards and syntax
 :::
 :::
 
-
-
-
 ## Build a query {.galah auto-animate="true" transition-speed="fast"}
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
@@ -152,7 +145,7 @@ galah_config(email = "dax.kellie@csiro.au", verbose = FALSE)
 library(galah)
 
 galah_call() |>
-  galah_identify("Eolophus roseicapilla") |>
+  galah_identify("Eolophus roseicapilla") |> # galahs
   galah_filter(year >= 2019,
                stateProvince == "New South Wales") |>
   galah_group_by(year, dataResourceName) |>
@@ -273,22 +266,21 @@ tibble(
 :::
 :::
 
-:::aside
-:::{style="font-size: 30%"}
+::: aside
+::: {style="font-size: 30%"}
 Image credits:\
 [*Varanus varius*: Tracey-Ann Hooley (CC BY)](https://images.ala.org.au/image/e1746dc8-1ec6-4bca-a211-82c641a8bb07)\
 [*Vanellus tricolor*: Kym Nicolson (CC BY)](https://images.ala.org.au/image/details?imageId=3698fb4f-a008-4629-a03f-435e7b7ffb85)\
-[*Southern Brown Bandicoot*: Treeswift Wildlife and Nature (CC-BY-NC 4.0)](https://images.ala.org.au/image/b78df3c4-50e0-45b1-a2c5-7a518998fe2e)\
+[*Isoodon obesulus*: Treeswift Wildlife and Nature (CC-BY-NC 4.0)](https://images.ala.org.au/image/b78df3c4-50e0-45b1-a2c5-7a518998fe2e)\
 :::
 :::
-
 
 ## Thank you {background-color="#fce8f1"}
 
 ::: columns
 ::: {.column width="80%"}
 ::: {style="font-size: 70%;"}
-<br> <b>Dax Kellie</b><br> Data Analyst | Science & Decision Support | ALA<br> e: dax.kellie\@csiro.au<br> t: [\@daxkellie](https://twitter.com/daxkellie)<br> gh: [\@daxkellie](https://github.com/daxkellie) <br> <br> <b>`galah` development team</b><br> Martin Westgate<br> Matilda Stevenson<br> Shandiya Balasubramaniam<br> Peggy Newman<br> <br> <br> <em>These slides were made using Quarto & RStudio</em>
+<br> <b>Dax Kellie</b><br> Data Analyst \| Science & Decision Support \| ALA<br> e: dax.kellie\@csiro.au<br> t: [\@daxkellie](https://twitter.com/daxkellie)<br> gh: [\@daxkellie](https://github.com/daxkellie) <br> <br> <b>`galah` development team</b><br> Martin Westgate<br> Matilda Stevenson<br> Shandiya Balasubramaniam<br> Peggy Newman<br> <br> <br> <em>These slides were made using Quarto & RStudio</em>
 :::
 :::
 
@@ -296,4 +288,3 @@ Image credits:\
 ![](images/logos/ALA_Logo.png){style="width: 100%; height: auto"}<br> ![](images/logos/NCRIS_logo.png){style="width: 100%; height: auto"}<br> ![](images/logos/CSIRO_logo.png){style="width: 100%; height: auto"}
 :::
 :::
-

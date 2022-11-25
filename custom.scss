@@ -19,6 +19,7 @@ $selection-bg: #26351c !default;
 $code-color: #222322 !default;
 $custom-color: #f064a4;
 $custom-color-ala: #B8573E;
+$custom-link-color: #f064a4;
 
 
 // headings
@@ -30,6 +31,7 @@ $header-font-size: 2em;
 
 .reveal a {
   line-height: 1.3em;
+  color: $custom-link-color;
 }
 
 .reveal h1 {
